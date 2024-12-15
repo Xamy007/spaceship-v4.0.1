@@ -18,6 +18,7 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Space Shooter Enhanced")
 clock = pygame.time.Clock()
 
+BULLET_IMG = pygame.image.load(ROOT_DIR + "\\assets\\bullet.png")
 SPACESHIP_IMG = pygame.image.load(ROOT_DIR + "\\assets\\spaceship.png")
 ENEMY_IMG = pygame.image.load(ROOT_DIR + "\\assets\\enemy.png")
 POWER_UP_IMG = pygame.image.load(ROOT_DIR + "\\assets\\powerup.png")
@@ -25,6 +26,7 @@ HEALTH_PACK_IMG = pygame.image.load(ROOT_DIR + "\\assets\\health.png")
 SPEED_BOOST_IMG = pygame.image.load(ROOT_DIR + "\\assets\\speed_up.png")
 BOMB_IMG = pygame.image.load(ROOT_DIR + "\\assets\\bomb.png")
 
+BULLET_IMG = pygame.transform.scale(BULLET_IMG, (40, 30)) 
 SPACESHIP_IMG = pygame.transform.scale(SPACESHIP_IMG, (100, 100))
 ENEMY_IMG = pygame.transform.scale(ENEMY_IMG, (80, 80))
 POWER_UP_IMG = pygame.transform.scale(POWER_UP_IMG, (60, 60))
@@ -124,14 +126,15 @@ class Spaceship:
 
 class Bullet:
     def __init__(self, x, y):
-        self.rect = pygame.Rect(x - 5, y, 10, 20)
+        self.image = BULLET_IMG
+        self.rect = self.image.get_rect(center=(x, y))
         self.speed = -10
 
     def move(self):
         self.rect.y += self.speed
 
     def draw(self, surface):
-        pygame.draw.rect(surface, BLUE, self.rect)
+        surface.blit(self.image, self.rect)
 
 class Enemy:
     def __init__(self):
